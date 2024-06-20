@@ -9,9 +9,10 @@ from spending_control.filters import SpendingFilter
 class SpendingListView(FilterView):
     template_name = 'spending_control/spending_list.html'
     context_object_name = 'spendings'
-    queryset = Spending.objects.all().order_by('-created_at')
+    queryset = Spending.objects.all() # añadir ordenar por fecha de creación
     filterset_class = SpendingFilter
-    paginate_by = 10
+    # agregar paginacion de 10 elementos por página
+    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -19,7 +20,10 @@ class SpendingListView(FilterView):
         base_url = parse_url.scheme + "://" + parse_url.netloc + parse_url.path
         base_url += '?page=1'
 
-        context['filters'] = [
+        
+        # agregar el siguiente listado de filtros al context de la vista
+        """ 
+        [
             {'label': 'Ver todos', 'url': base_url},
             {'label': 'Pendiente de estado de cuenta',
                 'url': f'{base_url}&account_status=False'},
@@ -27,5 +31,7 @@ class SpendingListView(FilterView):
             {'label': 'Pendiente de conocimiento firmado',
                 'url': f'{base_url}&liquidation_certificate=False'},
         ]
+        """
+        
         return context
 

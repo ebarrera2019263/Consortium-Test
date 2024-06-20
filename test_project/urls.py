@@ -14,5 +14,3 @@ urlpatterns = [
     path('login/', SignInView.as_view(), name="login"),
     path('logout/', SignOutView.as_view(), name="logout"),
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

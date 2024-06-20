@@ -65,10 +65,14 @@ const app = Vue.createApp({
       let form = document.getElementById('form_upload_document');
       let formData = new FormData(form);
       this.loadingUpload = true;
+      let token = document.querySelector('[name=csrfmiddlewaretoken]');
 
       fetch(`${this.apiUrl}/spendings/${this.spendingId}/`, {
         method: 'PATCH',
-        body: formData
+        body: formData,
+        headers: {
+          'X-CSRFToken': token.value
+        }
       })
       .then(async response => {
         if (response.status == 400) {

@@ -8,7 +8,4 @@ class LiquidationInline(admin.TabularInline):
     extra = 1
 
 
-@admin.register(Spending)
-class SpendingAdmin(admin.ModelAdmin):
-    inlines = [LiquidationInline]
-    exclude = ('liquidations',)
+# Agregar el modelo Spending al panel de administración y agregar el inline LiquidationInline

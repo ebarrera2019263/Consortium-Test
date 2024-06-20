@@ -132,8 +132,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'test_project', 'static')]
 STATIC_URL = '/static/'
 
 ## Media files settings
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_URL = '/media/'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
