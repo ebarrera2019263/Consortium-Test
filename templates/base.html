@@ -212,10 +212,13 @@
                         <div class="peer"><h5 class="c-grey-900 mt-3 " id="username-nav"> Bienvenido {{ user.username }} </h5></div>
                     </li>
 
-                    <form action="" class="d-inline">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger mt-3 mr-2 btn-sm"> Cerrar sesion </button>
-                    </form>
+                    <form method="post" action="{% url 'logout' %}" class="d-inline">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-outline-danger mt-3 mr-2 btn-sm">
+                          Cerrar sesión
+                      </button>
+                  </form>
+                  
 
                 </ul>
             </div>
