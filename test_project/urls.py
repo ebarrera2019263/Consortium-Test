@@ -10,10 +10,10 @@ urlpatterns = [
     path('', IndexView.as_view(), name="index"),
     path("admin/", admin.site.urls),
     path('', include("spending_control.urls")),
-    
     path('login/', SignInView.as_view(), name="login"),
     path('logout/', SignOutView.as_view(), name="logout"),
 ]
 
+#  Para servir archivos subidos desde /media/
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

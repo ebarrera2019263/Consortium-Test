@@ -1,11 +1,8 @@
 from django.contrib import admin
+from .models import Spending
 
-from spending_control.models import Spending
-
-
-class LiquidationInline(admin.TabularInline):
-    model = Spending.liquidations.through
-    extra = 1
-
-
-# Agregar el modelo Spending al panel de administración y agregar el inline LiquidationInline
+@admin.register(Spending)
+class SpendingAdmin(admin.ModelAdmin):
+    list_display = ['id', 'type', 'status', 'created_by', 'created_at']
+    list_filter = ['status', 'type']
+    search_fields = ['created_by__username']

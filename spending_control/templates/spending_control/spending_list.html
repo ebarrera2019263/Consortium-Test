@@ -35,7 +35,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Tipo de cobro</th>
-              <th scope="col">Liquidacion enviada</th>
+              <th scope="col">Liquidación enviada</th>
               <th scope="col">Estado de cuenta</th>
               <th scope="col">Factura (Si aplica)</th>
               <th scope="col">Conocimiento firmado <br />por el cliente</th>
@@ -51,7 +51,7 @@
 
               <td>
                 {% if spending.liquidation_sent %}
-                  <a href="{{ spending.liquidation_sent.url }}">Ver documento</a>
+                  <a href="{{ spending.liquidation_sent.url }}" target="_blank">Ver documento</a>
                 {% else %}
                   No disponible
                 {% endif %}
@@ -59,7 +59,7 @@
 
               <td>
                 {% if spending.account_status %}
-                  <a href="{{ spending.account_status.url }}">Ver documento</a>
+                  <a href="{{ spending.account_status.url }}" target="_blank">Ver documento</a>
                 {% else %}
                   Pendiente
                 {% endif %}
@@ -68,7 +68,7 @@
               <td>
                 {% if spending.type == 'INVOICED' %}
                   {% if spending.invoice %}
-                    <a href="{{ spending.invoice.url }}">Ver documento</a>
+                    <a href="{{ spending.invoice.url }}" target="_blank">Ver documento</a>
                   {% else %}
                     Pendiente
                   {% endif %}
@@ -79,7 +79,7 @@
 
               <td>
                 {% if spending.signed_liquidation_certificate %}
-                  <a href="{{ spending.signed_liquidation_certificate.url }}">Ver documento</a>
+                  <a href="{{ spending.signed_liquidation_certificate.url }}" target="_blank">Ver documento</a>
                 {% else %}
                   Pendiente
                 {% endif %}
