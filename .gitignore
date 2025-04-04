@@ -3,3 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.cpython-36
+
+# Entorno virtual
+env/

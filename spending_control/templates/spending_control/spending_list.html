@@ -1,7 +1,11 @@
-{% extends "base.html" %} {% load static %} 
-{% block title %} Lista de cobros {% endblock title %} 
-{% block cdns %} {% endblock cdns %} {% block main %}
+{% extends "base.html" %}
+{% load static %}
 
+{% block title %} Lista de cobros {% endblock title %}
+
+{% block cdns %} {% endblock cdns %}
+
+{% block main %}
 <div id="spending-list">
   <h2 class="text-center">Lista de cobros</h2>
   <span> </span>
@@ -16,10 +20,9 @@
         >
           Ver por
         </button>
-
         <div class="dropdown-menu">
           {% for item in filters %}
-          <a href="{{ item.url }}" class="dropdown-item"> {{ item.label }} </a>
+            <a href="{{ item.url }}" class="dropdown-item"> {{ item.label }} </a>
           {% endfor %}
         </div>
       </div>
@@ -35,10 +38,7 @@
               <th scope="col">Liquidacion enviada</th>
               <th scope="col">Estado de cuenta</th>
               <th scope="col">Factura (Si aplica)</th>
-              <th scope="col">
-                Conocimiento firmado <br />
-                por el cliente
-              </th>
+              <th scope="col">Conocimiento firmado <br />por el cliente</th>
               <th scope="col">Estado</th>
               <th scope="col">Opciones</th>
             </tr>
@@ -48,48 +48,51 @@
             <tr>
               <td>{{ forloop.counter }}</td>
               <td>{{ spending.get_type_display }}</td>
+
               <td>
-                <a href="{{ spending.liquidation_sent.url }}">
-                  Ver documento
-                </a>
+                {% if spending.liquidation_sent %}
+                  <a href="{{ spending.liquidation_sent.url }}">Ver documento</a>
+                {% else %}
+                  No disponible
+                {% endif %}
               </td>
 
               <td>
-                {% if spending.account_status != '' or spending.account != None %}
-                <a href="{{ spending.account_status.url }}"> Ver documento </a>
-                {% else %} Pendiente {% endif %}
+                {% if spending.account_status %}
+                  <a href="{{ spending.account_status.url }}">Ver documento</a>
+                {% else %}
+                  Pendiente
+                {% endif %}
               </td>
-
-              <td v-if="'{{ spending.type }}' == 'INVOICED'">
-                <a
-                  href="{{ spending.invoice }}"
-                  v-if="'{{ spending.invoice }}' != ''"
-                >
-                  Ver documento
-                </a>
-                <span v-else> Pendiente </span>
-              </td>
-
-              <td v-else>No aplica</td>
 
               <td>
-                {% if spending.signed_liquidation_certificate != '' and spending.signed_liquidation_certificate %}
-                <a href="{{ spending.signed_liquidation_certificate }}">
-                  Ver documento
-                </a>
-                {% else %} Pendiente {% endif %}
+                {% if spending.type == 'INVOICED' %}
+                  {% if spending.invoice %}
+                    <a href="{{ spending.invoice.url }}">Ver documento</a>
+                  {% else %}
+                    Pendiente
+                  {% endif %}
+                {% else %}
+                  No aplica
+                {% endif %}
+              </td>
+
+              <td>
+                {% if spending.signed_liquidation_certificate %}
+                  <a href="{{ spending.signed_liquidation_certificate.url }}">Ver documento</a>
+                {% else %}
+                  Pendiente
+                {% endif %}
               </td>
 
               <td>{{ spending.get_status_display }}</td>
 
-              {% if spending.signed_liquidation_certificate != '' and spending.signed_liquidation_certificate != None %}
-              <td>Proceso finalizado</td>
+              {% if spending.signed_liquidation_certificate %}
+                <td>Proceso finalizado</td>
               {% else %}
-
-              <td>
-                {% include "spending_control/components/action_buttons.html" with data=spending %}
-              </td>
-
+                <td>
+                  {% include "spending_control/components/action_buttons.html" with data=spending %}
+                </td>
               {% endif %}
             </tr>
             {% endfor %}
@@ -97,15 +100,16 @@
         </table>
       </div>
 
-      {% include "spending_control/components/pagination.html" %} 
-      {% include "spending_control/components/modals/document_modal.html" %} 
-      {% include "spending_control/components/modals/justification_modal.html" %} 
+      {% include "spending_control/components/pagination.html" %}
+      {% include "spending_control/components/modals/document_modal.html" %}
+      {% include "spending_control/components/modals/justification_modal.html" %}
       {% include "spending_control/components/modals/show_justification_modal.html" %}
     </section>
   </main>
 </div>
+{% endblock main %}
 
-{% endblock main %} {% block scripts %}
+{% block scripts %}
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script type="module" src="{% static 'js/spendings/list.js' %}"></script>
 {% endblock scripts %}
